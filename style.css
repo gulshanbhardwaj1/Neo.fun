@@ -1,0 +1,553 @@
+/* ==========================================================================
+   RESET & SYSTEM VARIABLES
+   ========================================================================== */
+:root {
+    --bg-dark: #050508;
+    --bg-card: rgba(15, 15, 25, 0.7);
+    --glass-border: rgba(255, 255, 255, 0.08);
+    
+    /* Neon Palettes */
+    --neon-pink: #ff007f;
+    --neon-blue: #00f0ff;
+    --neon-green: #39ff14;
+    --neon-purple: #b026ff;
+    --neon-orange: #ff6700;
+    --neon-cyan: #00ffff;
+    --neon-red: #ff3333;
+    --neon-yellow: #fff000;
+    
+    --text-main: #f5f5fa;
+    --text-muted: #8a8a9e;
+    
+    --font-display: 'Orbitron', sans-serif;
+    --font-body: 'Space Grotesk', sans-serif;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    scroll-behavior: smooth;
+}
+
+body {
+    background-color: var(--bg-dark);
+    color: var(--text-main);
+    font-family: var(--font-body);
+    overflow-x: hidden;
+    position: relative;
+}
+
+/* ==========================================================================
+   LOADER & LAYOUT COMPONENTS
+   ========================================================================== */
+.loader-container {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-dark);
+    z-index: 9999;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    transition: opacity 0.6s ease, visibility 0.6s ease;
+}
+
+.loader-content {
+    text-align: center;
+}
+
+.loader-logo {
+    font-family: var(--font-display);
+    font-size: 3rem;
+    font-weight: 900;
+    letter-spacing: 4px;
+    margin-bottom: 20px;
+}
+
+.loader-logo span { color: var(--neon-blue); text-shadow: 0 0 15px var(--neon-blue); }
+
+.loader-bar {
+    width: 250px; height: 4px;
+    background: rgba(255,255,255,0.1);
+    border-radius: 2px; overflow: hidden;
+    margin: 0 auto 15px;
+}
+
+.loader-progress {
+    width: 0%; height: 100%;
+    background: linear-gradient(90deg, var(--neon-pink), var(--neon-blue));
+    box-shadow: 0 0 10px var(--neon-blue);
+    animation: load 2.5s cubic-bezier(0.1, 0.8, 0.3, 1) forwards;
+}
+
+.loader-text {
+    font-family: var(--font-display);
+    font-size: 0.8rem;
+    color: var(--text-muted);
+    letter-spacing: 2px;
+}
+
+@keyframes load {
+    100% { width: 100%; }
+}
+
+/* Background Canvas Layer */
+#bg-canvas {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%; height: 100%;
+    z-index: -1;
+    pointer-events: none;
+}
+
+/* Custom Cursor Glow */
+.mouse-glow {
+    position: fixed;
+    width: 400px; height: 400px;
+    background: radial-gradient(circle, rgba(0,240,255,0.07) 0%, rgba(255,0,127,0.02) 50%, transparent 70%);
+    border-radius: 50%;
+    pointer-events: none;
+    transform: translate(-50%, -50%);
+    z-index: 0;
+    transition: width 0.3s ease, height 0.3s ease;
+}
+
+
+/* ==========================================================================
+   GLOBAL NAV SYSTEMS (FIXED ALIGNMENT)
+   ========================================================================== */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; width: 100%;
+    padding: 20px 0; /* Top/Bottom padding 20px, Left/Right 0 kyunki andar container handle karega */
+    background: rgba(5, 5, 8, 0.75);
+    backdrop-filter: blur(15px);
+    -webkit-backdrop-filter: blur(15px);
+    border-bottom: 1px solid var(--glass-border);
+    z-index: 1000;
+}
+
+.nav-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 24px; /* Isse mobile aur desktop dono par logo ko left se perfect spacing milegi */
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+}
+
+.nav-logo {
+    font-family: var(--font-display);
+    font-size: 1.6rem;
+    font-weight: 900;
+    text-decoration: none;
+    color: var(--text-main);
+    letter-spacing: 2px;
+}
+
+.nav-logo span { color: var(--neon-pink); }
+
+
+.nav-links {
+    display: flex;
+    list-style: none;
+    gap: 35px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: var(--text-muted);
+    font-weight: 500;
+    transition: color 0.3s, text-shadow 0.3s;
+    font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+    color: var(--text-main);
+    text-shadow: 0 0 10px rgba(255,255,255,0.6);
+}
+
+.nav-stats {
+    font-family: var(--font-display);
+    font-size: 0.85rem;
+    color: var(--neon-green);
+    letter-spacing: 1px;
+}
+
+/* Hamburg Menu Setup */
+.menu-toggle {
+    display: none;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 24px;
+    height: 16px;
+    cursor: pointer;
+    z-index: 1600;
+}
+
+.menu-toggle span {
+    width: 100%;
+    height: 2px;
+    background-color: var(--text-main);
+    border-radius: 4px;
+    transition: all 0.3s cubic-bezier(0.1, 0.9, 0.2, 1);
+}
+
+/* ==========================================================================
+   HERO SECTION
+   ========================================================================== */
+.hero {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 0 20px;
+    position: relative;
+}
+
+.hero-content {
+    max-width: 850px;
+    z-index: 2;
+}
+
+.badge {
+    display: inline-block;
+    font-family: var(--font-display);
+    font-size: 0.75rem;
+    letter-spacing: 2px;
+    background: linear-gradient(90deg, rgba(255,0,127,0.2), rgba(0,240,255,0.2));
+    border: 1px solid var(--neon-blue);
+    padding: 6px 16px;
+    border-radius: 30px;
+    margin-bottom: 25px;
+    color: #fff;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+}
+
+.hero-title {
+    font-family: var(--font-display);
+    font-size: 4.5rem;
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: -1px;
+    margin-bottom: 25px;
+}
+
+.text-gradient {
+    background: linear-gradient(135deg, var(--neon-blue) 0%, var(--neon-pink) 50%, var(--neon-purple) 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: var(--text-muted);
+    line-height: 1.6;
+    margin-bottom: 40px;
+    font-weight: 400;
+}
+
+.btn-primary {
+    display: inline-block;
+    font-family: var(--font-display);
+    text-decoration: none;
+    padding: 16px 40px;
+    background: #fff;
+    color: #000;
+    font-weight: 700;
+    border-radius: 4px;
+    letter-spacing: 1px;
+    box-shadow: 0 0 30px rgba(255, 255, 255, 0.3);
+    transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275), box-shadow 0.3s;
+}
+
+.btn-primary:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 0 40px rgba(0, 240, 255, 0.6);
+}
+
+/* ==========================================================================
+   GAME CARDS & GRID PORTAL FEED
+   ========================================================================== */
+.portal-feed {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: 0 40px;
+}
+
+.feed-section {
+    padding: 100px 0 60px 0;
+}
+
+.section-title {
+    font-family: var(--font-display);
+    font-size: 2rem;
+    margin-bottom: 40px;
+    letter-spacing: 1px;
+    position: relative;
+    display: inline-block;
+}
+
+.cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.game-card {
+    background: var(--bg-card);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    transition: border-color 0.4s, box-shadow 0.4s, transform 0.1s ease-out;
+    transform-style: preserve-3d;
+    perspective: 1000px;
+}
+
+.game-card:hover {
+    border-color: rgba(255, 255, 255, 0.25);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.card-preview {
+    height: 180px;
+    background: #0f0f1a;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    border-bottom: 1px solid var(--glass-border);
+}
+
+.preview-icon {
+    font-size: 3.5rem;
+    z-index: 2;
+    transition: transform 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.game-card:hover .preview-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.card-info {
+    padding: 25px;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+}
+
+.game-title {
+    font-family: var(--font-display);
+    font-size: 1.3rem;
+    margin-bottom: 10px;
+}
+
+.game-desc {
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.5;
+    margin-bottom: 25px;
+    flex-grow: 1;
+}
+
+.btn-play {
+    width: 100%;
+    padding: 12px;
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.15);
+    color: var(--text-main);
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: 0.85rem;
+    letter-spacing: 1px;
+    border-radius: 8px;
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.4s ease;
+}
+
+.btn-play:hover {
+    background: white;
+    color: black;
+    box-shadow: 0 0 20px rgba(255,255,255,0.4);
+    border-color: white;
+}
+
+.ripple {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.4);
+    border-radius: 50%;
+    transform: scale(0);
+    animation: ripple-effect 0.6s linear;
+    pointer-events: none;
+}
+
+@keyframes ripple-effect {
+    to { transform: scale(4); opacity: 0; }
+}
+
+/* ==========================================================================
+   CSS ANIMATIONS FOR INDIVIDUAL PREVIEWS
+   ========================================================================== */
+.preview-anim {
+    position: absolute;
+    width: 100%; height: 100%;
+    top: 0; left: 0; opacity: 0.15;
+    transition: opacity 0.4s;
+}
+
+.game-card:hover .preview-anim { opacity: 0.45; }
+
+.game-card:hover:has(.neon-pink) { border-color: var(--neon-pink); box-shadow: 0 0 20px rgba(255, 0, 127, 0.25); }
+.game-card:hover:has(.neon-blue) { border-color: var(--neon-blue); box-shadow: 0 0 20px rgba(0, 240, 255, 0.25); }
+.game-card:hover:has(.neon-green) { border-color: var(--neon-green); box-shadow: 0 0 20px rgba(57, 255, 20, 0.25); }
+.game-card:hover:has(.neon-purple) { border-color: var(--neon-purple); box-shadow: 0 0 20px rgba(176, 38, 255, 0.25); }
+.game-card:hover:has(.neon-orange) { border-color: var(--neon-orange); box-shadow: 0 0 20px rgba(255, 103, 0, 0.25); }
+.game-card:hover:has(.neon-cyan) { border-color: var(--neon-cyan); box-shadow: 0 0 20px rgba(0, 255, 255, 0.25); }
+.game-card:hover:has(.neon-red) { border-color: var(--neon-red); box-shadow: 0 0 20px rgba(255, 51, 51, 0.25); }
+.game-card:hover:has(.neon-yellow) { border-color: var(--neon-yellow); box-shadow: 0 0 20px rgba(255, 240, 0, 0.25); }
+
+.circle-anim { border: 2px dashed var(--neon-pink); border-radius: 50%; width: 80px; height: 80px; top: 50%; left: 50%; transform: translate(-50%, -50%) rotate(0deg); animation: spin 10s linear infinite; }
+.reflex-anim { background: radial-gradient(circle, var(--neon-blue) 10%, transparent 60%); animation: pulse 2s infinite; }
+.color-anim { background: linear-gradient(45deg, var(--neon-green), var(--neon-yellow)); filter: blur(30px); width: 100%; height: 100%; animation: pulse 4s linear infinite; }
+.bubble-anim { background: radial-gradient(circle, transparent 30%, var(--neon-purple) 70%); border-radius: 50%; width: 40px; height: 40px; top: 70%; left: 30%; animation: floatUp 4s linear infinite; }
+
+@keyframes spin { 100% { transform: translate(-50%, -50%) rotate(360deg); } }
+@keyframes pulse { 0%, 100% { transform: scale(0.8); opacity: 0.2; } 50% { transform: scale(1.2); opacity: 0.6; } }
+@keyframes floatUp { 0% { transform: translateY(100px) scale(0.5); opacity: 0; } 50% { opacity: 1; } 100% { transform: translateY(-150px) scale(1.2); opacity: 0; } }
+
+/* ==========================================================================
+   ABOUT & FOOTER
+   ========================================================================== */
+.about-section {
+    padding: 120px 0;
+    border-top: 1px solid var(--glass-border);
+    margin-top: 100px;
+}
+
+.about-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+}
+
+.about-content h2 { font-family: var(--font-display); font-size: 2.2rem; margin-bottom: 25px; }
+.about-content p { color: var(--text-muted); font-size: 1.1rem; line-height: 1.7; margin-bottom: 40px; }
+
+.stats-container {
+    display: flex;
+    justify-content: space-around;
+    gap: 20px;
+}
+
+.stat-box h3 { font-family: var(--font-display); font-size: 2rem; color: #fff; margin-bottom: 5px; }
+.stat-box p { font-size: 0.9rem; color: var(--text-muted); margin: 0;}
+
+.footer {
+    border-top: 1px solid var(--glass-border);
+    padding: 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 1400px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    color: var(--text-muted);
+}
+
+.footer-socials { display: flex; gap: 25px; }
+.footer-socials a { text-decoration: none; color: var(--text-muted); transition: color 0.3s; }
+.footer-socials a:hover { color: var(--neon-cyan); }
+
+/* ==========================================================================
+   SLIDE DRAWER THEME ARCHITECTURE
+   ========================================================================== */
+.sidebar-slider {
+    position: fixed;
+    top: 0; right: -285px; width: 280px; height: 100vh;
+    background: rgba(8, 8, 14, 0.98);
+    border-left: 2px solid var(--neon-pink);
+    box-shadow: -15px 0 35px rgba(0, 0, 0, 0.8);
+    z-index: 2500;
+    transition: right 0.4s cubic-bezier(0.1, 0.9, 0.2, 1);
+    padding: 60px 24px 30px 24px;
+    box-sizing: border-box;
+}
+
+.sidebar-slider.open { right: 0; }
+
+.close-sidebar {
+    position: absolute; top: 15px; right: 20px;
+    font-size: 32px; color: var(--text-muted);
+    cursor: pointer; transition: color 0.2s;
+}
+.close-sidebar:hover { color: var(--neon-pink); }
+
+.sidebar-links { list-style: none; margin-top: 30px; }
+.sidebar-links li { margin-bottom: 22px; }
+.sidebar-links a {
+    font-family: var(--font-display); font-size: 1.05rem;
+    color: rgba(255, 255, 255, 0.65); text-decoration: none;
+    letter-spacing: 1.5px; transition: all 0.3s ease; display: block;
+}
+.sidebar-links a:hover, .sidebar-links a.active {
+    color: var(--neon-blue); text-shadow: 0 0 8px var(--neon-blue); padding-left: 8px;
+}
+
+.sidebar-overlay {
+    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0, 0, 0, 0.65); backdrop-filter: blur(4px);
+    z-index: 2400; opacity: 0; visibility: hidden; transition: all 0.3s ease;
+}
+.sidebar-overlay.open { opacity: 1; visibility: visible; }
+
+/* ==========================================================================
+   RESPONSIVE MEDIA SYMMETRY LOGIC (FIXED SYSTEM)
+   ========================================================================== */
+@media (max-width: 992px) {
+    .hero-title { font-size: 3.5rem; }
+    .navbar { padding: 20px; }
+    .nav-links { display: none; }
+    .menu-toggle { display: flex; } /* Toggle pops active here */
+}
+
+@media (max-width: 768px) {
+    .navbar { padding: 15px 20px !important; }
+    .nav-container { justify-content: space-between !important; width: 100% !important; }
+    .nav-stats { display: none !important; }
+    
+    .portal-feed { padding: 0 20px !important; }
+    .feed-section { padding: 60px 0 30px 0 !important; }
+    
+    .cards-grid { grid-template-columns: 1fr !important; gap: 20px !important; }
+    .game-card { transform: none !important; }
+    .game-card:hover { transform: translateY(-5px) !important; }
+
+    .hero-title { font-size: 2.2rem !important; line-height: 1.2 !important; letter-spacing: 0px !important; }
+    .hero-subtitle { font-size: 0.95rem !important; padding: 0 15px !important; }
+    .stats-container { flex-direction: column !important; gap: 20px !important; }
+    .footer { flex-direction: column !important; gap: 20px !important; text-align: center !important; }
+}
+
+@media (max-width: 480px) {
+    .hero-title { font-size: 1.8rem !important; }
+    .portal-feed { padding: 0 15px !important; }
+}
+
+
+/* ==========================================================================
+   MOBILE NAVBAR SPACING FIX (NAV-LINKS TOUCH NHI KIYA)
+   ========================================================================== */
+@media (max-width: 768px) {
+    .main-navbar {
+        padding-left: 24px !important;  /* Logo ko left edge se safe gap dega */
+        padding-right: 24px !important; /* Hamburger icon ko right edge se safe gap dega */
+        box-sizing: border-box !important;
+    }
+}
