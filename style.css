@@ -649,3 +649,47 @@ main h2 {
     text-align: center;
 }
 
+
+
+
+
+
+
+
+
+
+/* ==========================================================================
+   NEO.FUN - RESPONSIVE FIXED MATRIX GRID (DESKTOP 4 & MOBILE 1 VERTICAL)
+   ========================================================================== */
+
+/* Desktop Mode: Badi screen par direct 4-4 ke horizontal rows banenge */
+.trending-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; 
+    gap: 25px !important;
+    width: 100% !important;
+    max-width: 1350px !important;
+    margin: 0 auto !important;
+    padding: 30px 40px !important;
+    align-items: stretch !important;
+}
+
+/* Tablet Mode: Screen thodi choti hone par 2-2 cards ho jayenge */
+@media (max-width: 1024px) {
+    .trending-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        padding: 20px 30px !important;
+        gap: 20px !important;
+    }
+}
+
+/* Mobile Mode: Yahan se wo 2-line vertical wala jhanjhat khatam ho jayega! */
+/* Ab mobile par automatic ek ke neeche ek single card hi aayega */
+@media (max-width: 768px) {
+    .trending-grid {
+        grid-template-columns: 1fr !important; /* Ekdam single vertical row block */
+        padding: 10px 15px !important;
+        gap: 20px !important;
+    }
+}
+
