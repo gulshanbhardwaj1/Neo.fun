@@ -633,10 +633,6 @@ body {
    NEO.FUN - ORIGINAL GAMES GRID & HEADING BALANCE FIX
    ========================================================================== */
 
-/* ==========================================================================
-   NEO.FUN - ORIGINAL GAMES GRID & HEADING BALANCE FIX
-   ========================================================================== */
-
 /* 1. Developer Blogs & Milestones Heading Ko Chota Kiya */
 .blog-section h2, 
 h2:has(+ .coding-high-tag),
@@ -651,7 +647,39 @@ main h2 {
 
 
 
+/* ==========================================================================
+   NEO.FUN - RESPONSIVE MATRIX GRID FIX (DESKTOP 4 HORIZONTAL & MOBILE VERTICAL)
+   ========================================================================== */
 
+/* 1. Desktop Mode: Badi screen par direct 4-4 ke horizontal rows banenge */
+.trending-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important; 
+    gap: 25px !important;
+    width: 100% !important;
+    max-width: 1350px !important;
+    margin: 0 auto !important;
+    padding: 30px 40px !important;
+    align-items: stretch !important;
+}
+
+/* 2. Tablet Mode: Screen thodi choti hone par 2-2 cards ho jayenge taaki kachra na ho */
+@media (max-width: 1024px) {
+    .trending-grid {
+        grid-template-columns: repeat(2, 1fr) !important;
+        padding: 20px 30px !important;
+        gap: 20px !important;
+    }
+}
+
+/* 3. Mobile Mode: Tumhaari screen par ab automatic bilkul normal ek ke neeche ek standalone vertical chalega */
+@media (max-width: 768px) {
+    .trending-grid {
+        grid-template-columns: 1fr !important; /* Fixed single vertical line */
+        padding: 10px 15px !important;
+        gap: 20px !important;
+    }
+}
 
 
 
@@ -696,30 +724,7 @@ main h2 {
 
 
 
-
-
-
-
-/* Asli Desktop aur bade screens par bhi top bar aur slider toggle ko dikhane ke liye */
-@media (min-width: 769px) {
-    .menu-toggle {
-        display: flex !important; /* Three lines/burger icon computer par bhi dikhega */
-    }
-    
-    /* Agar desktop ke main links upar chupane hain taaki sirf toggle dikhe */
-    .nav-links {
-        display: none !important; 
-
-
-
-
-
-
-
-       
-
-
-       /* Image ko card ki boundary ke andar lock karne ke liye */
+/* Image ko card ki boundary ke andar lock karne ke liye */
 .card-preview {
     position: relative !important;
     overflow: hidden !important; /* Isse photo border se 1mm bhi baahar nahi niklegi */
@@ -735,5 +740,6 @@ main h2 {
     height: 100% !important;
     object-fit: cover !important; /* Isse photo stretch nahi hogi aur perfect fit baithegi */
 }
-    }
-}
+
+
+
