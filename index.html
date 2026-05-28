@@ -229,44 +229,21 @@
         
     
         
-        <div id="legends-section" class="hall-of-fame" style="background: #070b19; border: 2px solid #39ff14; border-radius: 15px; padding: 25px; box-shadow: 0 0 25px rgba(57,255,20,0.25); font-family: 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 40px auto; color: #fff; box-sizing: border-box;">
+        <<div id="legends-section" class="hall-of-fame" style="background: #070b19; border: 2px solid #39ff14; border-radius: 15px; padding: 25px; box-shadow: 0 0 25px rgba(57,255,20,0.25); font-family: 'Segoe UI', Roboto, sans-serif; max-width: 480px; margin: 40px auto; color: #fff; box-sizing: border-box;">
     
-    <h3 style="color: #39ff14; text-align: center; margin-top: 0; letter-spacing: 2px; text-transform: uppercase; font-size: 1.4rem; margin-bottom: 5px;">👑 NEO.FUN 
-    LEGENDS 👑</h3>
+    <h3 style="color: #39ff14; text-align: center; margin-top: 0; letter-spacing: 2px; text-transform: uppercase; font-size: 1.4rem; margin-bottom: 5px;">👑 NEO.FUN LEGENDS 👑</h3>
     <p style="color: #8a8a9e; font-size: 0.85rem; text-align: center; margin-bottom: 20px; font-style: italic;">"Bhai log, hamari website par dosto ne dharashayi macha diya!"</p>
     
-    <div style="background: rgba(255, 255, 255, 0.03); border-left: 4px solid #00f0ff; padding: 12px; margin-bottom: 15px; border-radius: 0 8px 8px 0;">
-        <div style="font-size: 0.75rem; color: #00f0ff; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">📐 PERFECT CIRCLE CHALLENGE</div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
-            <span style="font-size: 1rem; font-weight: bold; color: #ffffff;">Winner: Birendr Kumar</span>
-            <span style="color: #39ff14; font-weight: bold; font-family: monospace; font-size: 1.1rem;">95.4%</span>
-        </div>
-        <p style="color: #8a8a9e; font-size: 0.75rem; margin: 5px 0 0 0; font-style: italic;">God Level Precision! Single attempt me matrix core ko stabilize kiya.</p>
-    </div>
-
-    <div style="background: rgba(255, 255, 255, 0.03); border-left: 4px solid #ff007f; padding: 12px; margin-bottom: 15px; border-radius: 0 8px 8px 0;">
-        <div style="font-size: 0.75rem; color: #ff007f; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">🐍 NEON SNAKE MATRIX</div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
-            <span style="font-size: 1rem; font-weight: bold; color: #ffffff;">Winner: Birendr Kumar</span>
-            <span style="color: #39ff14; font-weight: bold; font-family: monospace; font-size: 1.1rem;">180 PTS</span>
-        </div>
-        <p style="color: #8a8a9e; font-size: 0.75rem; margin: 5px 0 0 0; font-style: italic;">System Overdrive Mode! Max speed grid ko break karke naya record.</p>
-    </div>
-
-    <div style="background: rgba(255, 255, 255, 0.03); border-left: 4px solid #ffff00; padding: 12px; margin-bottom: 15px; border-radius: 0 8px 8px 0;">
-        <div style="font-size: 0.75rem; color: #ffff00; font-weight: bold; letter-spacing: 1px; text-transform: uppercase;">👑 FLEX REACTION CHALLENGE</div>
-        <div style="display: flex; justify-content: space-between; align-items: center; margin-top: 5px;">
-            <span style="font-size: 1rem; font-weight: bold; color: #ffffff;">Winne: web owner brothers</span>
-            <span style="color: #39ff14; font-weight: bold; font-family: monospace; font-size: 1.1rem;">117ms</span>
-        </div>
-        <p style="color: #8a8a9e; font-size: 0.75rem; margin: 5px 0 0 0; font-style: italic;">Unpredictable Level! Shifting nodes par fast sync reaction score.</p>
+    <div id="dynamic-leaderboard-rows">
+        <p style="color: #8a8a9e; font-size: 0.85rem; text-align: center;">Loading Matrix Data...</p>
     </div>
 
     <div style="text-align: center; margin-top: 20px; border-top: 1px solid rgba(255,255,255,0.1); padding-top: 15px;">
         <p style="color: #39ff14; font-size: 0.85rem; font-weight: bold; margin: 0;">Kya inke records todne ka jigra hai kisi me?</p>
     </div>
+</div>
 
-        </div>
+        
 
 
         
@@ -420,6 +397,8 @@
 <script src="speed-clecker.js"></script>
 <script src="ai-paradox.js"></script>
 <script src="acoustic-snap.js"></script>
+    <script type="module" src="systems/auth-system.js"></script>
+    <script src="systems/global-scoreboard.js"></script>
 
 </body>
             </html>
